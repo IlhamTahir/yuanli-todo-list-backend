@@ -7,6 +7,6 @@ export class UserController {
 
   @Get()
   create() {
-    this.userService.create();
+    return this.userService.create();
   }
 }
