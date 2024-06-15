@@ -9,6 +9,9 @@ import database from './config/database';
 import { Role } from './entity/Role';
 import { APP_PIPE } from '@nestjs/core';
 import { ValidationPipe } from './pipe/ValidationPipe';
+import { JwtModule } from '@nestjs/jwt';
+import { TokenController } from './controller/TokenController';
+import { AuthService } from './service/AuthService';
 
 @Global()
 @Module({
@@ -21,10 +24,16 @@ import { ValidationPipe } from './pipe/ValidationPipe';
       isGlobal: true,
       load: [database],
     }),
+    JwtModule.register({
+      global: true,
+      secret: 'todolist',
+      signOptions: { expiresIn: '300s' },
+    }),
   ],
-  controllers: [UserController],
+  controllers: [UserController, TokenController],
   providers: [
     UserService,
+    AuthService,
     {
       provide: APP_PIPE,
       useClass: ValidationPipe,

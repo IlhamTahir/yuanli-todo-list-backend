@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from '../entity/User';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,9 +13,13 @@ export class UserService {
   ) {}
 
   async findByUsername(username: string) {
-    return this.userRepository.findOneBy({
+    const user = await this.userRepository.findOneBy({
       username,
     });
+    if (!user) {
+      throw new NotFoundException('用户不存在');
+    }
+    return user;
   }
 
   async create(userCreateRequest: UserCreateRequest) {
