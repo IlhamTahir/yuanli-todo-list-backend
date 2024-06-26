@@ -1,19 +1,9 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 import { Role } from './Role';
+import { BaseEntity } from './BaseEntity';
 
 @Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class User extends BaseEntity {
   @Column({
     unique: true,
   })
@@ -38,14 +28,4 @@ export class User {
     default: true,
   })
   enabled: boolean;
-
-  @CreateDateColumn({
-    name: 'created_time',
-  })
-  createdTime: Date;
-
-  @UpdateDateColumn({
-    name: 'updated_time',
-  })
-  updatedTime: Date;
 }
