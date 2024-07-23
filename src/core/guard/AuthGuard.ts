@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<Request>();
 
     // 白名单
-    if (['/tokens'].includes(request.url)) {
+    if (['/tokens', '/task-lists'].includes(request.url)) {
       return true;
     }
 
@@ -30,6 +30,9 @@ export class AuthGuard implements CanActivate {
   }
 
   private extractTokenFromHeader(request: Request) {
+    if (!request.headers.authorization) {
+      return '';
+    }
     const [type, token] = request.headers.authorization.split(' ') ?? [];
     return type === TOKEN_PREFIX ? token : '';
   }
