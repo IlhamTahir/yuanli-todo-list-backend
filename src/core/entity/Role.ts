@@ -1,16 +1,8 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity } from 'typeorm';
+import { BaseEntity } from './BaseEntity';
 
 @Entity()
-export class Role {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Role extends BaseEntity {
   @Column({
     unique: true,
   })
@@ -18,14 +10,4 @@ export class Role {
 
   @Column()
   label: string;
-
-  @CreateDateColumn({
-    name: 'created_time',
-  })
-  createdTime: Date;
-
-  @UpdateDateColumn({
-    name: 'updated_time',
-  })
-  updatedTime: Date;
 }

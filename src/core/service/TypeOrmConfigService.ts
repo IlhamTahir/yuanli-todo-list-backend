@@ -1,5 +1,4 @@
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
-import { User } from '../entity/User';
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import database from '../config/database';
@@ -20,7 +19,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       password: this.dbConfig.password,
       database: this.dbConfig.database,
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
     };
   }
 }
